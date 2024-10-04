@@ -1,0 +1,56 @@
+#######################################################################################################################################
+# Teoría
+
+1. a) Como excepciones o casos avanzados que van más allá de las primeras tres formas normales.
+#--------------------------------------------------------------------------------------------------------------------------------------
+
+2. Como sabemos tanto el WHERE como HAVING son clausulas que utilizamos para hacer consultas en las que filtramos resultados que nosotros determinamos, pero lo que los diferencia es que WHERE lo utilizamos para columnas individuales en donde nosotros filtramos las filas individuales, debemos tomar en cuenta que esto se hace antes de realizar algún tipo de calculo. Por lo contrario en la clausula HAVING podemos filtrar grupos de filas de los que buscamos basar la consulta en los resultados de funciones de agregación; Esto se lograra ejecutar hasta después de que se halla hecho una agrupación de datos por medio de la clausula GROUP BY y las condiciones determinadas como las funciones de agregación en el HAVING se aplicaran en el GROUP BY.  
+#--------------------------------------------------------------------------------------------------------------------------------------
+
+3. c) FROM -> WHERE -> SELECT -> ORDER BY
+#--------------------------------------------------------------------------------------------------------------------------------------
+
+4. a) Anomalía de inserción, eliminación y actualización.
+#--------------------------------------------------------------------------------------------------------------------------------------
+
+5. En este meme podemos ver comandos como Git add (Nos sirve para agregar archivos a u índice de Git), Git commit (Nos sirve para guardar los cambio locales en un repositorio), Git push (Nos sirve para enviar los cambios guardados localmente a un repositorio). Con el contexto anterior podemos determinar que este meme causa gracia por que en la primera imagen vemos el comando "Git commit" lo representamos como un avion que esta por despegar, lo que asociamos con que estamos guardando algún archivo, en la segunda imagen vemos el comando "Git push" lo que figuramos como un avion que esta ya en el aire segundos después de despegar, esto nos dice que se están enviando los cambios locales al repositorio remoto, la tercer imagen utilizan el comando "Git add" y este se muestra como una multitud de personas que están en las escaleras del avion a punto de abordar pero no hay avion, esto dice que están agregando archivos e información al índice de Git. Lo gracioso es que no es lógica la secuencia en la que se están declarando los comandos ya que estas guardando y enviando archivos sin haberlos agregado previamente, y los datos solo quedan varados.
+#######################################################################################################################################
+# Práctica
+
+1.
+
+```SQL
+-- poner solución debajo de este mensaje
+SELECT AVG(edad) AS Promedio_Edad
+FROM alumnos
+WHERE apellido LIKE '%ez';
+
+```
+
+2.
+
+```SQL
+-- poner solución debajo de este mensaje
+SELECT 
+    a.nombre, 
+    a.apellido,	
+    MAX(c.calificacion) AS Calificacion_Maxima
+FROM 
+     alumnos a 
+INNER JOIN  calificaciones c  ON a.expediente = c.expediente
+GROUP BY a.expediente, a.nombre, a.apellido;
+```
+
+3.
+
+```SQL
+-- poner solución debajo de este mensaje
+SELECT a.nombre, a.apellido
+FROM alumnos a
+INNER JOIN calificaciones c ON a.expediente = c.expediente
+WHERE c.calificacion > (
+    SELECT AVG(calificacion)
+    FROM calificaciones
+);
+
+```
